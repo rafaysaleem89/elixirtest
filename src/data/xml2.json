@@ -1,0 +1,9 @@
+{
+   "ExtractData": {
+      "PlanID": "123456",
+      "PlanName": "ABC",
+      "PlanType": "XYZ",
+      "PlanYear": "00000",
+      "ContractNumber": "ABC123"
+   }
+}

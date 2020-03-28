@@ -1,0 +1,17 @@
+{
+   "Plan": {
+      "PlanID": "10375",
+      "PlanName": "PHCG",
+      "PlanType": {
+         "PlanID1": "10375",
+         "PlanNam2": "PHCG"
+      }
+   },
+   "ExtractData": {
+      "PlanID": "123456",
+      "PlanName": "ABC",
+      "PlanType": "XYZ",
+      "PlanYear": "00000",
+      "ContractNumber": "ABC123"
+   }
+}
