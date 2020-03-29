@@ -13,6 +13,8 @@ function App() {
   let secondTree = [];
 
   const [tableData,setTableData] = useState([]);
+  const [zIndexFixOne,setZIndexFixOne] = useState(0);
+  const [zIndexFixTwo,setZIndexFixTwo] = useState(0);
 
 
   useEffect(() => {
@@ -43,7 +45,6 @@ function App() {
   function initiateTree(jsonObj,treeNumber){
        let tree = makeTree(jsonObj);
        let treeElems = renderTree(tree,0,'',treeNumber);
-       console.log(treeElems);
        return treeElems;
       
   }
@@ -55,7 +56,7 @@ function App() {
 
     for (let index = 0; index < tree.length; index++) {
       const element = tree[index];
-      renderElements.push(<TreeElement treeNumber = {treeNumber} ref={React.createRef()}   getOverLappingElements={getOverLappingElements} title = {element[0]} path = {path+'/'+element[0]} level = {level} key ={path+'/'+element[0]}/>);
+      renderElements.push(<TreeElement treeNumber = {treeNumber} ref={React.createRef()} setZIndex = {setZIndex}   getOverLappingElements={getOverLappingElements} title = {element[0]} path = {path+'/'+element[0]} level = {level} key ={path+'/'+element[0]}/>);
       if(element.length>1){
         renderElements.push(...renderTree(element[1],level+1,path+'/'+element[0],treeNumber));
       }
@@ -65,7 +66,7 @@ function App() {
   }
 
   function getOverLappingElements(rect,treeNumber,path){
-     console.log(firstTree);
+
       let otherTree = treeNumber === 1? secondTree:firstTree;
      
       for (let index = 0; index < otherTree.length; index++) {
@@ -89,9 +90,9 @@ function App() {
 
   function areOverlapping(rect1,rect2){
     return !(rect1.right < rect2.left || 
-            rect1.left > rect2.right || 
-            rect1.bottom < rect2.top || 
-            rect1.top > rect2.bottom)
+      rect1.left > rect2.right || 
+      rect1.bottom < rect2.top || 
+      rect1.top > rect2.bottom)
   }
 
 
@@ -101,18 +102,31 @@ function App() {
     return val instanceof Object; 
   }
 
+  function setZIndex(treeNumber){
+       if(treeNumber === 1){
+         setZIndexFixTwo(-1);
+       }
+       else if(treeNumber === 2){
+         setZIndexFixOne(-1);
+       }
+       else{
+        setZIndexFixTwo(0);
+        setZIndexFixOne(0);
+       }
+  }
+
 
   return (
         <div>
-       <Container>
+       <Container >
          <Row className = "justify-content-md-left">
-           <Col>
+           <Col style={{zIndex: zIndexFixOne}}>
            <h6>XML1/JSON1</h6>
             {
              firstTree = initiateTree(xml1,1)
             }
            </Col>
-           <Col>
+           <Col style={{zIndex: zIndexFixTwo}}>
            <h6>XML2/JSON2</h6>
            {
              secondTree = initiateTree(xml2,2)

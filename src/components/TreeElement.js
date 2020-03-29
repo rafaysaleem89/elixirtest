@@ -18,6 +18,7 @@ export default class TreeElement extends Component {
 
     handleStop = (e) =>{
         this.props.getOverLappingElements(e.target.getBoundingClientRect(),this.props.treeNumber,this.props.path);
+        this.props.setZIndex(0);
 
     }
 
@@ -25,6 +26,7 @@ export default class TreeElement extends Component {
     }
 
     handleStart = (e) =>{
+        this.props.setZIndex(this.props.treeNumber);
     }
 
 
@@ -41,7 +43,9 @@ export default class TreeElement extends Component {
            onDrag={this.handleDrag}
            onStop={this.handleStop}
            >
+
               <p style={{fontSize:18-(this.props.level+1)}}>{this.props.title}</p>
+
            </Draggable> 
 
         </div>
